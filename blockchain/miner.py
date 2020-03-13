@@ -20,9 +20,12 @@ def proof_of_work(last_proof):
     #  TODO: Your code here
     block_string = hashlib.sha256(str(last_proof).encode()).hexdigest()
     proof = last_proof*randint(0, 100)
+
     while not valid_proof(block_string, proof):
         proof += 1
+
     print("Proof found: " + str(proof) + " in " + str(timer() - start))
+    
     return proof
 
 def valid_proof(last_hash, proof):
@@ -54,7 +57,7 @@ if __name__ == '__main__':
         exit()
     # Run forever until interrupted
     while True:
-        
+
         # Get the last proof from the server
         r = requests.get(url=node + "/last_proof")
         data = r.json()
